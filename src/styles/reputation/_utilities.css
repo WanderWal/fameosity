@@ -1,0 +1,84 @@
+.fame-icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--fame-color-text-secondary);
+  cursor: pointer;
+  padding: 0.25rem;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.fame-icon-btn:hover {
+  color: var(--fame-color-gold);
+}
+
+.fame-info-btn {
+  color: var(--fame-color-text-secondary);
+}
+
+.fame-info-btn:hover {
+  color: var(--fame-color-gold);
+}
+
+.fame-add-btn {
+  margin-bottom: 0.375rem;
+  flex-shrink: 0;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fame-add-btn:hover {
+  border-color: var(--fame-color-gold);
+  color: var(--fame-color-gold);
+}
+
+.fame-save-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fame-save-btn:hover {
+  border-color: var(--fame-color-gold);
+  color: var(--fame-color-gold);
+}
+
+.fame-mode-btn {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.fame-mode-btn:hover {
+  border-color: var(--fame-color-gold);
+  color: var(--fame-color-gold);
+}
+
+.fame-mode-btn.active {
+  background: var(--fame-color-gold);
+  border-color: var(--fame-color-gold);
+}
+
+.fame-mode-btn.active i {
+  color: var(--fame-color-text-emphatic);
+}
+
+.fame-mode-btn.active.hybrid {
+  background: linear-gradient(90deg, var(--fame-color-gold) 50%, transparent 50%);
+}
+
+.fame-mode-btn.active.hybrid i {
+  color: var(--fame-color-text-secondary);
+}

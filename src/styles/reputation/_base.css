@@ -1,0 +1,46 @@
+.fame-relations-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.fame-scroll-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.fame-no-items {
+  color: var(--fame-color-text-subtle);
+  font-style: italic;
+  padding: 0.5rem;
+}
+
+.fame-no-items.center {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.fame-drop-zone {
+  border: 2px dashed var(--fame-color-border);
+  border-radius: 4px;
+  padding: 0.625rem;
+  text-align: center;
+  color: var(--fame-color-text-subtle);
+  margin-bottom: 0.375rem;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.fame-drop-zone.member-drop,
+.fame-drop-zone.faction-drop,
+.fame-drop-zone.actor-drop {
+  padding: 0.375rem;
+  margin-bottom: 0.25rem;
+}
+
+.fame-drop-zone.drag-over {
+  border-color: var(--fame-color-gold);
+  color: var(--fame-color-gold);
+}

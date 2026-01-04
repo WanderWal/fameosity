@@ -1,0 +1,276 @@
+.fame-settings-content {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.fame-settings-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--fame-color-border);
+  flex-shrink: 0;
+}
+
+.fame-settings-tab {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.fame-settings-tab:hover {
+  color: var(--fame-color-gold);
+}
+
+.fame-settings-tab.active {
+  border-bottom-color: var(--fame-color-gold);
+  color: var(--fame-color-gold);
+}
+
+.fame-settings-tab i {
+  margin-right: 0.25rem;
+}
+
+.fame-settings-panel {
+  display: none;
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.75rem;
+}
+
+.fame-settings-panel.active {
+  display: block;
+}
+
+.fame-settings-footer {
+  padding: 0.5rem 0.75rem;
+  border-top: 1px solid var(--fame-color-border);
+  flex-shrink: 0;
+}
+
+.fame-settings-footer .fame-save-btn {
+  width: 100%;
+}
+
+.fame-settings-content .fame-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.fame-settings-content .fame-form-group label {
+  font-weight: 600;
+  color: var(--fame-color-text-emphatic);
+}
+
+.fame-settings-content .fame-hint {
+  color: var(--fame-color-text-secondary);
+  margin: 0;
+}
+
+.fame-settings-content .fame-form-group-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.fame-settings-content .fame-form-group-row .fame-form-group {
+  flex: 1;
+}
+
+.fame-settings-content input[type="text"],
+.fame-settings-content input[type="number"],
+.fame-settings-content select {
+  padding: 0.375rem;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 3px;
+}
+
+.fame-settings-content input[type="text"]:focus,
+.fame-settings-content input[type="number"]:focus,
+.fame-settings-content select:focus {
+  border-color: var(--fame-color-gold);
+  outline: none;
+}
+
+.fame-settings-content input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--fame-color-gold);
+}
+
+.fame-tiers-section {
+  margin-top: 0.5rem;
+}
+
+.fame-tiers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 0.25rem;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 4px;
+}
+
+.fame-tier-item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 4px;
+}
+
+.fame-tier-item .fame-tier-name {
+  flex: 1;
+  min-width: 80px;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 3px;
+  padding: 0.25rem;
+}
+
+.fame-tier-item .fame-tier-name:focus {
+  border-color: var(--fame-color-gold);
+  outline: none;
+}
+
+.fame-tier-item .fame-tier-min {
+  width: 60px;
+  text-align: center;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 3px;
+  padding: 0.25rem;
+}
+
+.fame-tier-item .fame-tier-min:focus {
+  border-color: var(--fame-color-gold);
+  outline: none;
+}
+
+.fame-tier-item .fame-tier-color {
+  width: 32px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.fame-tier-add {
+  margin-top: 0.375rem;
+  width: 100%;
+}
+
+.fame-ranks-section {
+  border: 1px solid var(--fame-color-border);
+  border-radius: 4px;
+  padding: 0.375rem;
+  margin-bottom: 0.5rem;
+}
+
+.fame-ranks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.375rem;
+}
+
+.fame-rank-item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem;
+  border-radius: 3px;
+}
+
+.fame-rank-item .fame-rank-name {
+  flex: 1;
+  min-width: 80px;
+  padding: 0.25rem;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 3px;
+}
+
+.fame-rank-item .fame-rank-name:focus {
+  border-color: var(--fame-color-gold);
+  outline: none;
+}
+
+.fame-rank-item .fame-rank-min {
+  width: 50px;
+  text-align: center;
+  padding: 0.25rem;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 3px;
+}
+
+.fame-rank-item .fame-rank-min:focus {
+  border-color: var(--fame-color-gold);
+  outline: none;
+}
+
+.fame-rank-item .fame-rank-color {
+  width: 28px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.fame-rank-item .fame-rank-multiplier {
+  width: 45px;
+  text-align: center;
+  padding: 0.25rem;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 3px;
+}
+
+.fame-rank-item .fame-rank-multiplier:focus {
+  border-color: var(--fame-color-gold);
+  outline: none;
+}
+
+.fame-rank-mult {
+  opacity: 0.8;
+  margin-left: 0.125rem;
+}
+
+.fame-rank-add-btn {
+  width: 100%;
+  padding: 0.25rem;
+  border: 1px dashed var(--fame-color-border);
+  border-radius: 3px;
+  color: var(--fame-color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fame-rank-add-btn:hover {
+  border-color: var(--fame-color-gold);
+  color: var(--fame-color-gold);
+}
+
+.fame-viewer-content {
+  padding: 0.5rem;
+}
+
+.fame-viewer-content .fame-reset-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.375rem;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fame-viewer-content .fame-reset-btn:hover {
+  border-color: var(--fame-color-error);
+  color: var(--fame-color-error);
+}

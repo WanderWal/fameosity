@@ -1,0 +1,20 @@
+:root {
+  --fame-color-gold: var(--color-warm-1);
+  --fame-color-text-emphatic: var(--color-text-emphatic);
+  --fame-color-text-secondary: var(--color-text-secondary);
+  --fame-color-text-subtle: var(--color-text-subtle);
+  --fame-color-border: var(--color-border);
+  --fame-color-scrollbar: var(--color-scrollbar);
+  --fame-color-success: var(--color-level-success);
+  --fame-color-warning: var(--color-level-warning);
+  --fame-color-error: var(--color-level-error);
+  
+  --fame-shadow-15: rgba(0, 0, 0, 0.15);
+  --fame-shadow-25: rgba(0, 0, 0, 0.25);
+  --fame-shadow-45: rgba(0, 0, 0, 0.45);
+  
+  --fame-wanted-accent: var(--color-warm-1);
+  --fame-wanted-bg: rgba(238, 155, 58, 0.15);
+  --fame-danger-bg: rgba(233, 58, 58, 0.1);
+  --fame-danger-border: rgba(233, 58, 58, 0.3);
+}

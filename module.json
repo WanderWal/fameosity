@@ -1,0 +1,58 @@
+{
+  "id": "fameocity",
+  "title": "Fameosity",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "description": "<p>A comprehensive reputation, factions, and relations management module for Foundry VTT v13+.</p>",
+  "authors": [
+    {
+      "name": "sweetyhake",
+      "email": "sweetyhake@gmail.com",
+      "discord": "sweetyhake",
+      "flags": {}
+    }
+  ],
+  "socket": true, 
+  "languages": [
+    {
+      "lang": "ru",
+      "name": "Russian",
+      "path": "lang/ru.json",
+      "flags": {}
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {}
+    },
+    {
+      "lang": "es",
+      "name": "Spanish",
+      "path": "lang/es.json",
+      "flags": {}
+    }
+  ],
+  "esmodules": [
+    "scripts/index.js"
+  ],
+  "styles": [
+    {
+      "src": "styles/reputation.css"
+    }
+  ],
+  "manifest": "https://raw.githubusercontent.com/SweetyHake/fameosity/refs/heads/main/module.json",
+  "download": "https://github.com/SweetyHake/fameosity/releases/download/13.0.0/module.zip",
+  "relationships": {
+    "requires": [
+      {
+        "id": "socketlib",
+        "type": "module",
+        "compatibility": {}
+      }
+    ]
+  }
+}

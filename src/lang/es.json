@@ -1,0 +1,152 @@
+{
+  "fameocity": {
+    "tiers": {
+      "hatred": "Odio",
+      "hostility": "Hostilidad",
+      "distrust": "Desconfianza",
+      "neutral": "Neutral",
+      "sympathy": "Simpatía",
+      "trust": "Confianza",
+      "friendship": "Amistad",
+      "alliance": "Alianza"
+    },
+    "settings": {
+      "reputationSettings": {
+        "name": "Configuración de Reputación",
+        "label": "Abrir Configuración",
+        "hint": "Configurar el sistema de reputación y relaciones",
+        "title": "Configuración de Reputación"
+      },
+      "enabled": {
+        "name": "Activar Sistema de Reputación",
+        "hint": "Activa o desactiva el sistema de reputación"
+      },
+      "displayMode": {
+        "name": "Modo de Visualización",
+        "hint": "Mostrar u ocultar el valor de reputación en las notificaciones",
+        "show": "Mostrar Valor",
+        "hide": "Ocultar Valor"
+      },
+      "reputationMin": {
+        "name": "Reputación Mínima"
+      },
+      "reputationMax": {
+        "name": "Reputación Máxima"
+      },
+      "dragActorHint": "Arrastra un actor aquí para rastrear"
+    },
+    "remember": {
+      "warn-no-token": "Selecciona un token o asigna un personaje",
+      "action-text-positive": "Reputación: {value}",
+      "action-text-negative": "Reputación: {value}",
+      "action-text-hidden": "La reputación ha cambiado",
+      "faction-prefix": "Facción"
+    },
+    "reputation": {
+      "window-title": "Reputación",
+      "current-label": "Reputación Actual",
+      "disabled": "El sistema de reputación está desactivado"
+    },
+    "relations": {
+      "viewer-title": "Relaciones",
+      "tab-character": "Personaje",
+      "tab-locations": "Ubicaciones",
+      "tab-factions": "Facciones",
+      "tab-actors": "Actores",
+      "no-locations": "Sin ubicaciones",
+      "no-factions": "Sin facciones",
+      "no-actors": "Sin actores",
+      "no-members": "Sin miembros",
+      "no-players": "Sin jugadores",
+      "tiers": "Niveles de Relación",
+      "addTier": "Añadir Nivel",
+      "newTier": "Nuevo Nivel",
+      "hide": "Ocultar",
+      "show": "Mostrar",
+      "delete": "Eliminar",
+      "remove": "Quitar",
+      "their-attitude": "Su actitud",
+      "your-attitude": "Tu actitud"
+    },
+    "factions": {
+      "add": "Añadir Facción",
+      "new-faction": "Nueva Facción"
+    },
+    "locations": {
+      "add": "Añadir Ubicación",
+      "new-location": "Nueva Ubicación",
+      "wanted": "Buscado",
+      "factions-here": "Facciones",
+      "actors-here": "Actores"
+    },
+    "wanted": {
+      "add": "Añadir a Buscados",
+      "no-warrants": "Sin órdenes",
+      "reason-placeholder": "Razón de búsqueda...",
+      "unknown": "Estado desconocido",
+      "reward-label": "recompensa"
+    },
+    "character": {
+      "no-wanted": "No buscado",
+      "wanted-summary": "Buscado",
+      "stat-wanted": "buscado",
+      "stat-factions": "facciones",
+      "stat-relations": "relaciones",
+      "subtab-locations": "Ubicaciones",
+      "subtab-factions": "Facciones",
+      "subtab-actors": "Actores",
+      "attitude": "Actitud",
+      "is-member": "Miembro de facción"
+    },
+    "ranks": {
+      "title": "Rangos",
+      "add": "Añadir Rango",
+      "new-rank": "Nuevo Rango",
+      "members": "Miembros",
+      "auto": "Auto",
+      "min-reputation": "Rep. mínima",
+      "multiplier": "Multiplicador"
+    },
+    "mode": {
+      "manual": "Manual",
+      "auto": "Auto",
+      "hybrid": "Híbrido"
+    },
+    "info": {
+      "title": "Información",
+      "tab-public": "Público",
+      "tab-gm": "Solo DJ",
+      "no-info": "Sin información"
+    },
+    "picker": {
+      "select-actor": "Seleccionar Actor",
+      "select-faction": "Seleccionar Facción",
+      "search": "Buscar...",
+      "no-actors": "Sin actores",
+      "no-factions": "Sin facciones",
+      "add-actor": "Añadir Actor",
+      "add-faction": "Añadir Facción",
+      "untracked": "Sin rastrear"
+    },
+    "confirm": {
+      "delete-title": "Confirmar Eliminación",
+      "delete-faction": "¿Estás seguro de que quieres eliminar esta facción?",
+      "delete-location": "¿Estás seguro de que quieres eliminar esta ubicación?",
+      "delete-actor": "¿Estás seguro de que quieres dejar de rastrear este actor?",
+      "delete-member": "¿Estás seguro de que quieres quitar este miembro de la facción?",
+      "delete-rank": "¿Estás seguro de que quieres eliminar este rango?",
+      "delete-wanted": "¿Estás seguro de que quieres quitar el estado de buscado?",
+      "remove-from-location": "¿Estás seguro de que quieres quitar esto de la ubicación?"
+    },
+    "keybindings": {
+      "increase": {
+        "name": "Aumentar Reputación",
+        "hint": "Aumenta la reputación del personaje seleccionado en 1"
+      },
+      "decrease": {
+        "name": "Disminuir Reputación",
+        "hint": "Disminuye la reputación del personaje seleccionado en 1"
+      }
+    }
+  }
+}
