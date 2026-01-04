@@ -1,4 +1,4 @@
-# Fameocity - Reputation system for Foundry VTT
+# Fameosity - Reputation system for Foundry VTT
 
 A system agnostic reputation and relations management module for Foundry VTT that allows Game Masters to track complex social dynamics between NPCs, factions, locations, and player characters.
 
