@@ -357,3 +357,42 @@
   border-color: var(--fame-color-gold);
   outline: none;
 }
+
+.fame-location-wanted-reward {
+  width: 55px;
+  text-align: center;
+  padding: 0.25rem;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 3px;
+}
+
+.fame-location-wanted-reward:focus {
+  border-color: var(--fame-color-gold);
+  outline: none;
+}
+
+.fame-faction-wanted-reward {
+  width: 55px;
+  text-align: center;
+  padding: 0.25rem;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 3px;
+}
+
+.fame-faction-wanted-reward:focus {
+  border-color: var(--fame-color-gold);
+  outline: none;
+}
+
+.fame-wanted-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fame-wanted-header .fame-wanted-stars {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+  margin-right: 0.5rem;
+}

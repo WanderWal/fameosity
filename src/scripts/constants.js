@@ -1,4 +1,4 @@
-export const MODULE_ID = "fameocity";
+export const MODULE_ID = "fameosity";
 
 export const CONFIG_REMEMBER = {
   displayDuration: 3500,

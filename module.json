@@ -1,5 +1,5 @@
 {
-  "id": "fameocity",
+  "id": "fameosity",
   "title": "Fameosity",
   "version": "1.0.0",
   "compatibility": {
@@ -45,7 +45,7 @@
     }
   ],
   "manifest": "https://raw.githubusercontent.com/SweetyHake/fameosity/refs/heads/main/module.json",
-  "download": "https://github.com/SweetyHake/fameosity/releases/download/13.0.0/module.zip",
+  "download": "https://github.com/SweetyHake/fameosity/releases/download/1.0.0/module.zip",
   "relationships": {
     "requires": [
       {
