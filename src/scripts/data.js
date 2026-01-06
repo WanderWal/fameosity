@@ -1,4 +1,4 @@
-import { MODULE_ID, DEFAULT_DATA, DEFAULT_SETTINGS, DEFAULT_TIER_KEYS } from './constants.js';
+import { MODULE_ID, DEFAULT_DATA, DEFAULT_SETTINGS, DEFAULT_TIER_KEYS, SOCKET_TYPES } from './constants.js';
 import { ReputationEvents } from './events.js';
 
 let _dataCache = null;
@@ -24,6 +24,10 @@ export function getData() {
 
 export async function setData(data) {
   _dataCache = data;
+  
+  if (!game.user.isGM) {
+    return requestGMUpdate(data);
+  }
   
   return new Promise(resolve => {
     _pendingResolvers.push(resolve);
@@ -53,6 +57,75 @@ export async function setData(data) {
   });
 }
 
+async function requestGMUpdate(data) {
+  return new Promise((resolve, reject) => {
+    const requestId = foundry.utils.randomID();
+    
+    const timeout = setTimeout(() => {
+      reject(new Error('GM update request timed out'));
+    }, 10000);
+    
+    const handler = (response) => {
+      if (response.requestId === requestId) {
+        clearTimeout(timeout);
+        game.socket.off(`module.${MODULE_ID}`, handler);
+        if (response.success) {
+          resolve();
+        } else {
+          reject(new Error(response.error || 'Update failed'));
+        }
+      }
+    };
+    
+    game.socket.on(`module.${MODULE_ID}`, handler);
+    
+    game.socket.emit(`module.${MODULE_ID}`, {
+      type: SOCKET_TYPES.REQUEST_DATA_UPDATE,
+      data: foundry.utils.deepClone(data),
+      requestId,
+      userId: game.user.id
+    });
+  });
+}
+
+export function handleSocketMessage(message) {
+  if (message.type === SOCKET_TYPES.REQUEST_DATA_UPDATE && game.user.isGM) {
+    handleGMDataUpdate(message);
+  } else if (message.type === SOCKET_TYPES.UPDATE_DATA && !game.user.isGM) {
+    _dataCache = message.data;
+    ReputationEvents.emit(ReputationEvents.EVENTS.DATA_LOADED, { data: _dataCache });
+  } else if (message.type === SOCKET_TYPES.SHOW_NOTIFICATION) {
+    const { showNotification } = require('./core/notifications.js');
+    showNotification(message.tokenName, message.actionText, message.delta, message.ownerIds);
+  }
+}
+
+async function handleGMDataUpdate(message) {
+  try {
+    _dataCache = message.data;
+    await game.settings.set(MODULE_ID, "reputationData", foundry.utils.deepClone(_dataCache));
+    
+    game.socket.emit(`module.${MODULE_ID}`, {
+      type: SOCKET_TYPES.UPDATE_DATA,
+      data: _dataCache
+    });
+    
+    game.socket.emit(`module.${MODULE_ID}`, {
+      requestId: message.requestId,
+      success: true
+    });
+    
+    ReputationEvents.emit(ReputationEvents.EVENTS.DATA_LOADED, { data: _dataCache });
+  } catch (e) {
+    console.error(`${MODULE_ID} | GM update error:`, e);
+    game.socket.emit(`module.${MODULE_ID}`, {
+      requestId: message.requestId,
+      success: false,
+      error: e.message
+    });
+  }
+}
+
 export async function flushData() {
   if (_saveTimeout && _dataCache) {
     clearTimeout(_saveTimeout);
@@ -62,7 +135,11 @@ export async function flushData() {
     _pendingResolvers = [];
     
     try {
-      await game.settings.set(MODULE_ID, "reputationData", foundry.utils.deepClone(_dataCache));
+      if (game.user.isGM) {
+        await game.settings.set(MODULE_ID, "reputationData", foundry.utils.deepClone(_dataCache));
+      } else {
+        await requestGMUpdate(_dataCache);
+      }
     } catch (e) {
       console.error(`${MODULE_ID} | Flush error:`, e);
     }
@@ -123,8 +200,14 @@ export function getTier(value) {
   if (!tiers || tiers.length === 0) {
     return { name: "Unknown", color: "#666666", minValue: -Infinity };
   }
-  const sorted = tiers.sort((a, b) => b.minValue - a.minValue);
-  return sorted.find(tier => value >= tier.minValue) || sorted[sorted.length - 1];
+  
+  if (value >= 0) {
+    const positiveTiers = tiers.filter(t => t.minValue >= 0).sort((a, b) => b.minValue - a.minValue);
+    return positiveTiers.find(tier => value >= tier.minValue) || positiveTiers[positiveTiers.length - 1] || tiers[0];
+  } else {
+    const negativeTiers = tiers.filter(t => t.minValue < 0).sort((a, b) => a.minValue - b.minValue);
+    return negativeTiers.find(tier => value <= tier.minValue) || negativeTiers[negativeTiers.length - 1] || tiers[0];
+  }
 }
 
 export function getRepColor(value) {

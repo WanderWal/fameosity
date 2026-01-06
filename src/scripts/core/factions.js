@@ -1,5 +1,5 @@
 import { MODULE_ID } from '../constants.js';
-import { getData, setData, clamp, getLimits } from '../data.js';
+import { getData, setData, clamp, getLimits, getSettings } from '../data.js';
 import { ReputationEvents } from '../events.js';
 import { getTracked, getActorRep, isActorAuto, calcAutoActorRep } from './actors.js';
 
@@ -19,6 +19,7 @@ export async function setFactions(factions) {
 }
 
 export async function addFaction(factionData) {
+  const settings = getSettings();
   const factions = getFactions();
   const newFaction = {
     id: foundry.utils.randomID(),
@@ -31,6 +32,7 @@ export async function addFaction(factionData) {
   };
   factions.push(newFaction);
   await setFactions(factions);
+  await setFactionMode(newFaction.id, settings.defaultFactionMode || 'manual');
   return newFaction;
 }
 
@@ -138,17 +140,20 @@ export function calcAutoFactionRep(factionId) {
 }
 
 export function calcHybridFactionRep(factionId) {
+  const settings = getSettings();
+  const baseWeight = (settings.hybridBaseWeight ?? 50) / 100;
+  const autoWeight = (settings.hybridAutoWeight ?? 50) / 100;
+  
   const faction = getFaction(factionId);
   if (!faction) return 0;
   
   const baseRep = faction.reputation ?? 0;
-  const { max } = getLimits();
-  const cappedBase = Math.min(baseRep, max / 2);
+  const autoRep = calcAutoFactionRep(factionId);
   
-  const membersRep = calcAutoFactionRep(factionId);
-  const membersContribution = Math.round(membersRep / 2);
+  const totalWeight = baseWeight + autoWeight;
+  if (totalWeight === 0) return 0;
   
-  return cappedBase + membersContribution;
+  return clamp(Math.round((baseRep * baseWeight + autoRep * autoWeight) / totalWeight));
 }
 
 export function getFactionRep(factionId) {
@@ -194,17 +199,12 @@ export async function changeFactionRep(factionId, delta) {
 
 export function getFactionRank(factionId, actorId) {
   const faction = getFaction(factionId);
-  if (!faction) return null;
+  if (!faction?.ranks?.length) return null;
   
-  if (faction.memberRanks?.[actorId]) {
-    const manualRank = faction.ranks?.find(r => r.id === faction.memberRanks[actorId]);
-    if (manualRank) return manualRank;
-  }
+  const manualRankId = faction.memberRanks?.[actorId];
+  if (!manualRankId) return null;
   
-  const actorRep = isActorAuto(actorId) ? calcAutoActorRep(actorId) : getActorRep(actorId);
-  const ranks = (faction.ranks || []).sort((a, b) => (b.minReputation ?? -Infinity) - (a.minReputation ?? -Infinity));
-  
-  return ranks.find(r => r.minReputation !== null && actorRep >= r.minReputation) || ranks[ranks.length - 1] || null;
+  return faction.ranks.find(r => r.id === manualRankId) || null;
 }
 
 export async function setMemberRank(factionId, actorId, rankId) {

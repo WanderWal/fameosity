@@ -1,5 +1,5 @@
 import { MODULE_ID, DEFAULT_SETTINGS, DEFAULT_DATA } from './constants.js';
-import { getSettings, invalidateCache, getDefaultTiers, flushData, getTiers, getTier } from './data.js';
+import { getSettings, invalidateCache, getDefaultTiers, flushData, getTiers, getTier, handleSocketMessage } from './data.js';
 import { ReputationEvents } from './events.js';
 import {
   getActorRep, setActorRep, getDisplayName, getCustomName, setCustomName,
@@ -224,6 +224,81 @@ export function registerSettings() {
 export function registerHooks() {
   Hooks.once('init', () => {
     registerSettings();
+    
+    // Register Handlebars helpers
+    Handlebars.registerHelper('eq', (a, b) => a === b);
+    Handlebars.registerHelper('ne', (a, b) => a !== b);
+    Handlebars.registerHelper('gt', (a, b) => a > b);
+    Handlebars.registerHelper('gte', (a, b) => a >= b);
+    Handlebars.registerHelper('lt', (a, b) => a < b);
+    Handlebars.registerHelper('lte', (a, b) => a <= b);
+    Handlebars.registerHelper('and', (...args) => args.slice(0, -1).every(Boolean));
+    Handlebars.registerHelper('or', (...args) => args.slice(0, -1).some(Boolean));
+    Handlebars.registerHelper('not', a => !a);
+    Handlebars.registerHelper('concat', (...args) => args.slice(0, -1).join(''));
+    
+    Handlebars.registerHelper('percentage', (value, min, max) => {
+      return ((value - min) / (max - min)) * 100;
+    });
+    
+    Handlebars.registerHelper('fillLeft', (value, min, max) => {
+      const percentage = ((value - min) / (max - min)) * 100;
+      const midPercentage = ((0 - min) / (max - min)) * 100;
+      return Math.min(midPercentage, percentage);
+    });
+    
+    Handlebars.registerHelper('fillWidth', (value, min, max) => {
+      const percentage = ((value - min) / (max - min)) * 100;
+      const midPercentage = ((0 - min) / (max - min)) * 100;
+      return Math.abs(percentage - midPercentage);
+    });
+    
+    Handlebars.registerHelper('filterMemberFactions', (factions, actorId) => {
+      if (!factions || !actorId) return [];
+      return factions.filter(f => f.members && f.members.some(m => m.id === actorId));
+    });
+    
+    Handlebars.registerHelper('findMemberRank', (faction, actorId) => {
+      if (!faction || !faction.members) return null;
+      const member = faction.members.find(m => m.id === actorId);
+      return member?.rank || null;
+    });
+    
+    Handlebars.registerHelper('tierBadge', (tier, small) => {
+      if (!tier) return '';
+      const cls = small === true ? 'fame-tier-badge small' : 'fame-tier-badge';
+      const len = tier.name ? tier.name.length : 0;
+      return new Handlebars.SafeString(
+        `<span class="${cls}" style="--text-length:${len};background:${tier.color}">${Handlebars.Utils.escapeExpression(tier.name)}</span>`
+      );
+    });
+    
+    Handlebars.registerHelper('wantedStars', (stars, options) => {
+      if (!stars || !Array.isArray(stars)) return '';
+      const hash = options.hash || {};
+      const editable = hash.editable === true;
+      const action = hash.action || '';
+      const entityType = hash.entityType || '';
+      const entityId = hash.entityId || '';
+      const pcId = hash.pcId || '';
+      
+      let html = '<div class="fame-wanted-stars">';
+      stars.forEach((star, i) => {
+        if (editable) {
+          html += `<i class="fa-solid fa-star fame-wanted-star-btn ${star.active ? 'active' : ''}" 
+                      data-action="${action}" data-${entityType}="${entityId}" data-pc="${pcId}" data-value="${star.value}"></i>`;
+        } else {
+          html += `<i class="fa-solid fa-star fame-wanted-star ${star.active ? 'active' : ''}"></i>`;
+        }
+      });
+      html += '</div>';
+      return new Handlebars.SafeString(html);
+    });
+
+    loadTemplates([
+      `modules/${MODULE_ID}/templates/relations/main.hbs`
+    ]);
+
     const moduleApi = createModuleAPI();
     game.modules.get(MODULE_ID).api = {
       ...(game.modules.get(MODULE_ID).api || {}),
@@ -233,14 +308,12 @@ export function registerHooks() {
 
   Hooks.once('ready', () => {
     const savedTiers = game.settings.get(MODULE_ID, "relationTiers");
-    if (savedTiers?.some(t => t.name?.startsWith('FAMEOCITY.'))) {
+    if (!savedTiers || savedTiers.length === 0 || savedTiers.some(t => t.name?.startsWith('FAMEOCITY.'))) {
       game.settings.set(MODULE_ID, "relationTiers", getDefaultTiers());
     }
 
     game.socket.on(`module.${MODULE_ID}`, data => {
-      if (data.type === "showNotification") {
-        showNotification(data.tokenName, data.actionText, data.delta, data.showChange, data.ownerIds);
-      }
+      handleSocketMessage(data);
     });
 
     window.SweetyUtilities = {

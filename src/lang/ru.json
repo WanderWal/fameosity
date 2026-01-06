@@ -1,105 +1,201 @@
 {
-  "fameocity.settings.reputationSettings.name": "Настройки репутации",
-  "fameocity.settings.reputationSettings.label": "Настроить",
-  "fameocity.settings.reputationSettings.hint": "Настройка системы репутации",
-  "fameocity.settings.reputationSettings.title": "Настройки репутации",
-  "fameocity.settings.tab-general": "Основные",
-  "fameocity.settings.tab-tiers": "Уровни",
-  "fameocity.settings.enabled.name": "Включить систему репутации",
-  "fameocity.settings.enabled.hint": "Включить или выключить систему репутации",
-  "fameocity.settings.displayMode.name": "Режим отображения",
-  "fameocity.settings.displayMode.hint": "Как изменения репутации отображаются игрокам",
-  "fameocity.settings.displayMode.show": "Показывать значения",
-  "fameocity.settings.displayMode.hide": "Скрывать значения",
-  "fameocity.settings.reputationMin.name": "Минимальная репутация",
-  "fameocity.settings.reputationMax.name": "Максимальная репутация",
-  "fameocity.settings.dragActorHint": "Перетащите актёра сюда для отслеживания",
-
-  "fameocity.keybindings.increase.name": "Повысить репутацию",
-  "fameocity.keybindings.increase.hint": "Повысить репутацию выбранного токена",
-  "fameocity.keybindings.decrease.name": "Понизить репутацию",
-  "fameocity.keybindings.decrease.hint": "Понизить репутацию выбранного токена",
-
-  "fameocity.reputation.window-title": "Репутация",
-  "fameocity.reputation.current-label": "Текущая репутация",
-  "fameocity.reputation.disabled": "Система репутации отключена",
-
-  "fameocity.relations.viewer-title": "Отношения",
-  "fameocity.relations.tab-character": "Персонаж",
-  "fameocity.relations.tab-locations": "Локации",
-  "fameocity.relations.tab-factions": "Фракции",
-  "fameocity.relations.tab-actors": "Актёры",
-  "fameocity.relations.no-locations": "Нет локаций",
-  "fameocity.relations.no-factions": "Нет фракций",
-  "fameocity.relations.no-actors": "Нет отслеживаемых актёров",
-  "fameocity.relations.no-members": "Нет участников",
-  "fameocity.relations.no-players": "Нет персонажей игроков",
-  "fameocity.relations.tiers": "Уровни отношений",
-  "fameocity.relations.addTier": "Добавить уровень",
-  "fameocity.relations.newTier": "Новый уровень",
-  "fameocity.relations.their-attitude": "Их отношение",
-  "fameocity.relations.your-attitude": "Ваше отношение",
-
-  "fameocity.tiers.hatred": "Ненависть",
-  "fameocity.tiers.hostility": "Враждебность",
-  "fameocity.tiers.distrust": "Недоверие",
-  "fameocity.tiers.neutral": "Нейтралитет",
-  "fameocity.tiers.sympathy": "Симпатия",
-  "fameocity.tiers.trust": "Доверие",
-  "fameocity.tiers.friendship": "Дружба",
-  "fameocity.tiers.alliance": "Союз",
-
-  "fameocity.factions.add": "Добавить фракцию",
-  "fameocity.factions.new-faction": "Новая фракция",
-
-  "fameocity.locations.add": "Добавить локацию",
-  "fameocity.locations.new-location": "Новая локация",
-  "fameocity.locations.wanted": "Розыск",
-  "fameocity.locations.factions-here": "Фракции",
-  "fameocity.locations.actors-here": "Актёры",
-
-  "fameocity.ranks.title": "Ранги",
-  "fameocity.ranks.members": "Участники",
-  "fameocity.ranks.add": "Добавить ранг",
-  "fameocity.ranks.new-rank": "Новый ранг",
-  "fameocity.ranks.auto": "Авто",
-
-  "fameocity.wanted.no-warrants": "Нет ордеров",
-  "fameocity.wanted.unknown": "Неизвестно",
-
-  "fameocity.character.wanted-summary": "В розыске",
-  "fameocity.character.subtab-locations": "Локации",
-  "fameocity.character.subtab-factions": "Фракции",
-  "fameocity.character.subtab-actors": "Актёры",
-
-  "fameocity.mode.manual": "Ручной",
-  "fameocity.mode.auto": "Авто",
-  "fameocity.mode.hybrid": "Гибрид",
-
-  "fameocity.info.title": "Информация",
-  "fameocity.info.tab-public": "Публичная",
-  "fameocity.info.tab-gm": "Только для ГМ",
-  "fameocity.info.no-info": "Информация отсутствует",
-
-  "fameocity.picker.search": "Поиск...",
-  "fameocity.picker.select-actor": "Выбрать актёра",
-  "fameocity.picker.select-faction": "Выбрать фракцию",
-  "fameocity.picker.no-actors": "Нет доступных актёров",
-  "fameocity.picker.no-factions": "Нет доступных фракций",
-
-  "fameocity.confirm.delete-title": "Подтвердите удаление",
-  "fameocity.confirm.delete-faction": "Вы уверены, что хотите удалить эту фракцию?",
-  "fameocity.confirm.delete-location": "Вы уверены, что хотите удалить эту локацию?",
-  "fameocity.confirm.delete-actor": "Вы уверены, что хотите убрать этого актёра из отслеживания?",
-  "fameocity.confirm.delete-member": "Вы уверены, что хотите убрать этого участника?",
-  "fameocity.confirm.delete-rank": "Вы уверены, что хотите удалить этот ранг?",
-  "fameocity.confirm.delete-wanted": "Вы уверены, что хотите снять этот ордер?",
-  "fameocity.confirm.remove-from-location": "Вы уверены, что хотите убрать это из локации?",
-
-  "fameocity.remember.warn-no-token": "Токен не выбран",
-  "fameocity.remember.action-approves": "одобряет",
-  "fameocity.remember.action-disapproves": "не одобряет",
-  "fameocity.remember.faction-prefix": "Фракция",
-
-  "fameocity.errors.saveFailed": "Не удалось сохранить данные репутации"
+  "fameosity": {
+    "settings": {
+      "reputationSettings": {
+        "name": "Настройки репутации",
+        "label": "Настроить",
+        "hint": "Настройка системы репутации",
+        "title": "Настройки репутации"
+      },
+      "tab-general": "Основные",
+      "tab-tiers": "Уровни",
+      "tab-modes": "Режимы",
+      "tab-data": "Данные",
+      "enabled": {
+        "name": "Включить систему репутации",
+        "hint": "Включить или выключить систему репутации"
+      },
+      "displayMode": {
+        "name": "Режим отображения",
+        "hint": "Как изменения репутации отображаются игрокам",
+        "show": "Показывать значения",
+        "hide": "Скрывать значения"
+      },
+      "reputationMin": {
+        "name": "Минимальная репутация"
+      },
+      "reputationMax": {
+        "name": "Максимальная репутация"
+      },
+      "defaultActorMode": {
+        "name": "Режим персонажей по умолчанию",
+        "hint": "Режим для новых отслеживаемых персонажей"
+      },
+      "defaultFactionMode": {
+        "name": "Режим фракций по умолчанию",
+        "hint": "Режим для новых фракций"
+      },
+      "hybridBalance": {
+        "name": "Баланс гибридного режима",
+        "hint": "Распределение веса между базовой репутацией и вычисляемым средним"
+      },
+      "hybridBase": {
+        "name": "Вес базы"
+      },
+      "hybridAuto": {
+        "name": "Вес отношений"
+      },
+      "dragActorHint": "Перетащите персонажа сюда",
+      "dragActorHintFull": "Перетащите персонажей из боковой панели для добавления в отслеживание",
+      "exportImport": {
+        "name": "Экспорт / Импорт",
+        "hint": "Резервное копирование или восстановление всех данных модуля, включая настройки, уровни, фракции, локации и отношения"
+      },
+      "export": "Экспорт",
+      "import": "Импорт",
+      "importSettings": "Импортировать настройки",
+      "importTiers": "Импортировать уровни отношений",
+      "importData": "Импортировать фракции, локации и отношения",
+      "exportSuccess": "Данные успешно экспортированы",
+      "importSuccess": "Данные успешно импортированы",
+      "importError": "Ошибка импорта данных",
+      "importInvalid": "Неверный формат файла импорта",
+      "dangerZone": "Опасная зона",
+      "resetAll": "Сбросить все данные",
+      "resetConfirmTitle": "Сброс всех данных",
+      "resetConfirmContent": "Вы уверены, что хотите сбросить ВСЕ данные модуля? Это удалит все фракции, локации, отношения и настройки. Это действие нельзя отменить!",
+      "resetSuccess": "Все данные сброшены"
+    },
+    "keybindings": {
+      "increase": {
+        "name": "Увеличить репутацию",
+        "hint": "Увеличить репутацию выбранного токена"
+      },
+      "decrease": {
+        "name": "Уменьшить репутацию",
+        "hint": "Уменьшить репутацию выбранного токена"
+      }
+    },
+    "tiers": {
+      "nemesis": "Заклятый враг",
+      "hostile": "Враждебный",
+      "unfriendly": "Недружелюбный",
+      "wary": "Настороженный",
+      "neutral": "Нейтральный",
+      "friendly": "Дружелюбный",
+      "allied": "Союзник",
+      "devoted": "Преданный"
+    },
+    "mode": {
+      "manual": "Ручной",
+      "auto": "Авто",
+      "hybrid": "Гибрид",
+      "manual-hint": "Ручной режим: репутация устанавливается напрямую",
+      "auto-hint": "Авто режим: вычисляется из отношений",
+      "hybrid-hint": "Гибридный режим: база + бонус отношений (макс. 50%)"
+    },
+    "reputation": {
+      "window-title": "Репутация",
+      "current-label": "Текущая репутация",
+      "disabled": "Система репутации отключена"
+    },
+    "relations": {
+      "viewer-title": "Отношения",
+      "tab-character": "Персонаж",
+      "tab-locations": "Локации",
+      "tab-factions": "Фракции",
+      "tab-actors": "Персонажи",
+      "tab-character-hint": "Просмотр отношений выбранного персонажа",
+      "tab-locations-hint": "Управление локациями и статусом розыска",
+      "tab-factions-hint": "Управление фракциями и их членами",
+      "tab-actors-hint": "Управление отслеживаемыми NPC",
+      "no-locations": "Нет локаций",
+      "no-factions": "Нет фракций",
+      "no-actors": "Нет отслеживаемых персонажей",
+      "no-members": "Нет членов",
+      "no-players": "Нет игровых персонажей",
+      "tiers": "Уровни отношений",
+      "addTier": "Добавить уровень",
+      "newTier": "Новый уровень",
+      "their-attitude": "Их отношение",
+      "your-attitude": "Ваше отношение",
+      "to-players": "Отношения к игрокам",
+      "faction-attitude": "Отношение фракции",
+      "members-avg": "Члены (средн.)",
+      "faction-memberships": "Членство во фракциях",
+      "no-faction-memberships": "Не состоит ни в одной фракции"
+    },
+    "factions": {
+      "add": "Добавить фракцию",
+      "add-hint": "Создать новую фракцию",
+      "new-faction": "Новая фракция",
+      "bounties": "Награды за поимку"
+    },
+    "locations": {
+      "add": "Добавить локацию",
+      "add-hint": "Создать новую локацию",
+      "new-location": "Новая локация",
+      "wanted": "В розыске",
+      "factions-here": "Фракции",
+      "actors-here": "Персонажи"
+    },
+    "ranks": {
+      "title": "Ранги",
+      "members": "Члены",
+      "add": "Добавить ранг",
+      "new-rank": "Новый ранг",
+      "auto": "Авто"
+    },
+    "wanted": {
+      "no-warrants": "Нет ордеров",
+      "no-bounties": "Награды не назначены",
+      "unknown": "Неизвестно"
+    },
+    "character": {
+      "wanted-summary": "В розыске",
+      "subtab-locations": "Локации",
+      "subtab-factions": "Фракции",
+      "subtab-actors": "Персонажи",
+      "subtab-locations-hint": "Просмотр локаций и статуса розыска",
+      "subtab-factions-hint": "Просмотр отношений с фракциями",
+      "subtab-actors-hint": "Просмотр отношений с NPC"
+    },
+    "info": {
+      "title": "Информация",
+      "tab-public": "Публичное",
+      "tab-gm": "Только для ГМ",
+      "no-info": "Информация недоступна"
+    },
+    "picker": {
+      "search": "Поиск...",
+      "select-actor": "Выбрать персонажа",
+      "select-faction": "Выбрать фракцию",
+      "no-actors": "Нет доступных персонажей",
+      "no-factions": "Нет доступных фракций"
+    },
+    "confirm": {
+      "delete-title": "Подтвердить удаление",
+      "delete-faction": "Вы уверены, что хотите удалить эту фракцию?",
+      "delete-location": "Вы уверены, что хотите удалить эту локацию?",
+      "delete-actor": "Вы уверены, что хотите убрать этого персонажа из отслеживания?",
+      "delete-member": "Вы уверены, что хотите удалить этого члена?",
+      "delete-rank": "Вы уверены, что хотите удалить этот ранг?",
+      "delete-wanted": "Вы уверены, что хотите удалить этот ордер?",
+      "remove-from-location": "Вы уверены, что хотите убрать это из локации?"
+    },
+    "remember": {
+      "warn-no-token": "Токен не выбран",
+      "action-approves": "одобряет",
+      "action-disapproves": "не одобряет",
+      "faction-prefix": "Фракция",
+      "relation-improved": "отношения с {target} улучшились",
+      "relation-worsened": "отношения с {target} ухудшились"
+    },
+    "tooltips": {
+      "delete": "Удалить"
+    },
+    "errors": {
+      "saveFailed": "Не удалось сохранить данные репутации"
+    }
+  }
 }

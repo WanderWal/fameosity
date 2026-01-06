@@ -1,5 +1,5 @@
 import { MODULE_ID } from '../constants.js';
-import { getData, setData, clamp, getLimits } from '../data.js';
+import { getData, setData, clamp, getLimits, getSettings } from '../data.js';
 import { ReputationEvents } from '../events.js';
 
 export function getTracked() {
@@ -18,6 +18,8 @@ export async function addTracked(actorId) {
   if (!tracked.includes(actorId)) {
     tracked.push(actorId);
     await setTracked(tracked);
+    const settings = getSettings();
+    await setActorMode(actorId, settings.defaultActorMode || 'manual');
     return true;
   }
   return false;
@@ -138,14 +140,17 @@ export function calcAutoActorRep(actorId) {
 }
 
 export function calcHybridActorRep(actorId) {
+  const settings = getSettings();
+  const baseWeight = (settings.hybridBaseWeight ?? 50) / 100;
+  const autoWeight = (settings.hybridAutoWeight ?? 50) / 100;
+  
   const baseRep = getActorRep(actorId);
-  const { max } = getLimits();
-  const cappedBase = Math.min(baseRep, max / 2);
-  
   const autoRep = calcAutoActorRep(actorId);
-  const autoContribution = Math.round(autoRep / 2);
   
-  return clamp(cappedBase + autoContribution);
+  const totalWeight = baseWeight + autoWeight;
+  if (totalWeight === 0) return 0;
+  
+  return clamp(Math.round((baseRep * baseWeight + autoRep * autoWeight) / totalWeight));
 }
 
 export function getEffectiveActorRep(actorId) {

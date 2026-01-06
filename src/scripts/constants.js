@@ -11,21 +11,25 @@ export const CONFIG_REMEMBER = {
 };
 
 export const DEFAULT_TIER_KEYS = [
-  { nameKey: "tiers.hatred", minValue: -100, color: "#a82020" },
-  { nameKey: "tiers.hostility", minValue: -60, color: "#c45a2a" },
-  { nameKey: "tiers.distrust", minValue: -30, color: "#b89a3a" },
-  { nameKey: "tiers.neutral", minValue: -10, color: "#6a6a6a" },
-  { nameKey: "tiers.sympathy", minValue: 10, color: "#88be8b" },
-  { nameKey: "tiers.trust", minValue: 30, color: "#50cd67" },
-  { nameKey: "tiers.friendship", minValue: 60, color: "#00961b" },
-  { nameKey: "tiers.alliance", minValue: 80, color: "#3a6a9a" }
+  { nameKey: "tiers.nemesis", minValue: -80, color: "#8b0000" },
+  { nameKey: "tiers.hostile", minValue: -50, color: "#c45a2a" },
+  { nameKey: "tiers.unfriendly", minValue: -30, color: "#b89a3a" },
+  { nameKey: "tiers.wary", minValue: -10, color: "#7a7a6a" },
+  { nameKey: "tiers.neutral", minValue: 10, color: "#717171" },
+  { nameKey: "tiers.friendly", minValue: 30, color: "#659365" },
+  { nameKey: "tiers.allied", minValue: 50, color: "#3a9a3a" },
+  { nameKey: "tiers.devoted", minValue: 80, color: "#2a7a9a" }
 ];
 
 export const DEFAULT_SETTINGS = {
   enabled: true,
   displayMode: "show",
   min: -100,
-  max: 100
+  max: 100,
+  defaultActorMode: "manual",
+  defaultFactionMode: "manual",
+  hybridBaseWeight: 50,
+  hybridAutoWeight: 50
 };
 
 export const DEFAULT_DATA = {
@@ -41,4 +45,10 @@ export const DEFAULT_DATA = {
   personalVisibility: {},
   locations: [],
   entityInfo: {}
+};
+
+export const SOCKET_TYPES = {
+  SHOW_NOTIFICATION: "showNotification",
+  UPDATE_DATA: "updateData",
+  REQUEST_DATA_UPDATE: "requestDataUpdate"
 };

@@ -1,3 +1,7 @@
+.fame-relations-viewer .window-content {
+  padding: 0;
+}
+
 .fame-relations-content {
   display: flex;
   flex-direction: column;
@@ -43,4 +47,27 @@
 .fame-drop-zone.drag-over {
   border-color: var(--fame-color-gold);
   color: var(--fame-color-gold);
+}
+
+.fame-relations-viewer .window-content {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.fame-relations-viewer .window-content > .fame-tabs {
+  flex-shrink: 0;
+}
+
+.fame-relations-viewer .fame-tab-panel {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem;
+  display: none;
+}
+
+.fame-relations-viewer .fame-tab-panel.active {
+  display: flex;
+  flex-direction: column;
 }

@@ -274,3 +274,114 @@
   border-color: var(--fame-color-error);
   color: var(--fame-color-error);
 }
+
+.fame-hybrid-settings {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--fame-color-border);
+}
+
+.fame-hybrid-sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.fame-hybrid-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fame-hybrid-label {
+  min-width: 100px;
+  color: var(--fame-color-text-secondary);
+}
+
+.fame-hybrid-slider-row input[type="range"] {
+  flex: 1;
+  accent-color: var(--fame-color-gold);
+}
+
+.fame-hybrid-value {
+  min-width: 40px;
+  text-align: right;
+  font-weight: 600;
+  color: var(--fame-color-gold);
+}
+
+.fame-export-import-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.fame-export-import-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.fame-export-import-row button {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--fame-color-border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fame-export-import-row button:hover {
+  border-color: var(--fame-color-gold);
+  color: var(--fame-color-gold);
+}
+
+.fame-import-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--fame-color-border);
+}
+
+.fame-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.fame-checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--fame-color-gold);
+}
+
+.fame-danger-zone {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--fame-color-error);
+}
+
+.fame-danger-zone label {
+  color: var(--fame-color-error);
+}
+
+.fame-reset-all-btn {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--fame-color-error);
+  border-radius: 4px;
+  color: var(--fame-color-error);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fame-reset-all-btn:hover {
+  background: var(--fame-color-error);
+  color: white;
+}

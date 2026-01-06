@@ -95,7 +95,7 @@ export class PickerApp extends foundry.applications.api.ApplicationV2 {
   _preparePCs() {
     return getPCs().map(pc => ({
       id: pc.id,
-      name: pc.name,
+      name: getDisplayName(pc.id),
       img: pc.img
     }));
   }

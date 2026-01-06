@@ -1,5 +1,6 @@
 .fame-relations-content .fame-tabs {
   margin: 0;
+  border-top: 1px solid var(--fame-color-border);
   border-bottom: 1px solid var(--fame-color-border);
   display: flex;
   flex-shrink: 0;
@@ -96,9 +97,7 @@
 }
 
 .fame-char-subtab-content {
-  border: 1px solid var(--fame-color-border);
   border-top: none;
-  border-radius: 0 0 4px 4px;
 }
 
 .fame-char-subpanel {

@@ -82,3 +82,12 @@
 .fame-mode-btn.active.hybrid i {
   color: var(--fame-color-text-secondary);
 }
+
+[data-tooltip] {
+  position: relative;
+}
+
+.fame-relations-viewer [data-tooltip]:hover::before,
+.fame-relations-viewer [data-tooltip]:hover::after {
+  display: none;
+}

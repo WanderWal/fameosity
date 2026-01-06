@@ -1,44 +1,41 @@
 import { getLimits, clamp, getRepColor, getTier, escapeHtml } from './data.js';
 
-export function createBar(value, min, max, editable = false, dataId = "", dataType = "", auto = false, showAutoBtn = false, compact = false, hybrid = false) {
+export function createBar(value, min, max, editable = false, dataId = "", dataType = "", mode = "manual", showModeBtn = false, compact = false) {
   const color = getRepColor(value);
   const percentage = ((value - min) / (max - min)) * 100;
   const midPercentage = ((0 - min) / (max - min)) * 100;
-  const hybridMaxPercentage = hybrid ? ((Math.floor(max / 2) - min) / (max - min)) * 100 : 100;
+  
+  const isAuto = mode === 'auto';
+  const isHybrid = mode === 'hybrid';
+  const sliderDisabled = isAuto || isHybrid;
 
   const barHtml = `
-    <div class="fame-bar${hybrid ? ' hybrid-mode' : ''}">
+    <div class="fame-bar${isHybrid ? ' hybrid-mode' : ''}">
       <div class="fame-bar-track">
         <div class="fame-bar-zero" style="left:${midPercentage}%"></div>
-        ${hybrid ? `<div class="fame-bar-hybrid-limit" style="left:${hybridMaxPercentage}%"></div>` : ''}
         <div class="fame-bar-fill" style="left:${Math.min(midPercentage, percentage)}%;width:${Math.abs(percentage - midPercentage)}%;background:${color}"></div>
         <div class="fame-bar-thumb" style="left:${percentage}%;background:${color}"></div>
       </div>
-      ${editable && !auto ? `<input type="range" class="fame-bar-slider" min="${min}" max="${max}" value="${value}" data-id="${escapeHtml(dataId)}" data-type="${escapeHtml(dataType)}" data-hybrid="${hybrid}">` : ''}
+      ${editable && !sliderDisabled ? `<input type="range" class="fame-bar-slider" min="${min}" max="${max}" value="${value}" data-id="${escapeHtml(dataId)}" data-type="${escapeHtml(dataType)}" data-mode="${mode}">` : ''}
     </div>
   `;
 
   const controlsHtml = editable
     ? `
       <div class="fame-bar-controls">
-        <button type="button" class="fame-bar-adj fame-minus" data-id="${escapeHtml(dataId)}" data-type="${escapeHtml(dataType)}" ${auto ? 'disabled' : ''}>
+        <button type="button" class="fame-bar-adj fame-minus" data-id="${escapeHtml(dataId)}" data-type="${escapeHtml(dataType)}" data-mode="${mode}">
           <i class="fa-solid fa-minus"></i>
         </button>
-        <input type="number" class="fame-bar-val" value="${value}" min="${min}" max="${max}" data-id="${escapeHtml(dataId)}" data-type="${escapeHtml(dataType)}" data-hybrid="${hybrid}" style="color:${color}" ${auto ? 'readonly' : ''}>
-        <button type="button" class="fame-bar-adj fame-plus" data-id="${escapeHtml(dataId)}" data-type="${escapeHtml(dataType)}" ${auto ? 'disabled' : ''}>
+        <input type="number" class="fame-bar-val" value="${value}" min="${min}" max="${max}" data-id="${escapeHtml(dataId)}" data-type="${escapeHtml(dataType)}" data-mode="${mode}" style="color:${color}" ${sliderDisabled ? 'readonly' : ''}>
+        <button type="button" class="fame-bar-adj fame-plus" data-id="${escapeHtml(dataId)}" data-type="${escapeHtml(dataType)}" data-mode="${mode}">
           <i class="fa-solid fa-plus"></i>
         </button>
-        ${showAutoBtn ? `
-          <button type="button" class="fame-auto-btn fame-icon-btn ${auto ? 'active' : ''}" data-id="${escapeHtml(dataId)}" data-type="${dataType === 'faction' ? 'faction' : 'actor'}">
-            <i class="fa-solid fa-calculator"></i>
-          </button>
-        ` : ''}
       </div>
     `
     : `<span class="fame-bar-value" style="color:${color}">${value > 0 ? '+' : ''}${value}</span>`;
 
   return `
-    <div class="fame-bar-container ${auto ? 'auto-mode' : ''} ${compact ? 'compact' : ''} ${hybrid ? 'hybrid-mode' : ''}" data-id="${escapeHtml(dataId)}" data-type="${escapeHtml(dataType)}">
+    <div class="fame-bar-container ${isAuto ? 'auto-mode' : ''} ${isHybrid ? 'hybrid-mode' : ''} ${compact ? 'compact' : ''}" data-id="${escapeHtml(dataId)}" data-type="${escapeHtml(dataType)}" data-mode="${mode}">
       ${!compact ? `<span class="fame-bar-min">${min}</span>` : ''}
       ${barHtml}
       ${!compact ? `<span class="fame-bar-max">${max}</span>` : ''}
@@ -84,6 +81,11 @@ export function updateBar(container, value) {
   if (badge) {
     badge.textContent = tier.name;
     badge.style.background = tier.color;
-    badge.dataset.value = value;
+    badge.style.setProperty('--text-length', tier.name.length);
   }
+}
+
+export function renderTierBadge(tier, small = false) {
+  const cls = small ? 'fame-tier-badge small' : 'fame-tier-badge';
+  return `<span class="${cls}" style="--text-length:${tier.name.length};background:${tier.color}">${escapeHtml(tier.name)}</span>`;
 }

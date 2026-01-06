@@ -1,5 +1,5 @@
 import { MODULE_ID } from '../constants.js';
-import { getSettings, setSettings, getTiers, setTiers, escapeHtml } from '../data.js';
+import { getSettings, setSettings, getTiers, setTiers, getData, setData, escapeHtml } from '../data.js';
 
 export class ReputationSettingsApp extends foundry.applications.api.ApplicationV2 {
   static DEFAULT_OPTIONS = {
@@ -43,13 +43,23 @@ export class ReputationSettingsApp extends foundry.applications.api.ApplicationV
       </div>
     `).join('');
 
+    const modeOptions = ['manual', 'auto', 'hybrid'].map(mode => 
+      `<option value="${mode}">${game.i18n.localize(`${MODULE_ID}.mode.${mode}`)}</option>`
+    ).join('');
+
     div.innerHTML = `
       <nav class="fame-settings-tabs">
         <a class="fame-settings-tab ${context.currentTab === 'general' ? 'active' : ''}" data-tab="general">
           <i class="fa-solid fa-cog"></i> ${game.i18n.localize(`${MODULE_ID}.settings.tab-general`)}
         </a>
+        <a class="fame-settings-tab ${context.currentTab === 'modes' ? 'active' : ''}" data-tab="modes">
+          <i class="fa-solid fa-sliders"></i> ${game.i18n.localize(`${MODULE_ID}.settings.tab-modes`)}
+        </a>
         <a class="fame-settings-tab ${context.currentTab === 'tiers' ? 'active' : ''}" data-tab="tiers">
           <i class="fa-solid fa-layer-group"></i> ${game.i18n.localize(`${MODULE_ID}.settings.tab-tiers`)}
+        </a>
+        <a class="fame-settings-tab ${context.currentTab === 'data' ? 'active' : ''}" data-tab="data">
+          <i class="fa-solid fa-database"></i> ${game.i18n.localize(`${MODULE_ID}.settings.tab-data`)}
         </a>
       </nav>
 
@@ -83,12 +93,83 @@ export class ReputationSettingsApp extends foundry.applications.api.ApplicationV
         </div>
       </div>
 
+      <div class="fame-settings-panel ${context.currentTab === 'modes' ? 'active' : ''}" data-tab="modes">
+        <div class="fame-form-group">
+          <label>${game.i18n.localize(`${MODULE_ID}.settings.defaultActorMode.name`)}</label>
+          <select name="defaultActorMode">
+            ${modeOptions.replace(`value="${context.settings.defaultActorMode || 'manual'}"`, `value="${context.settings.defaultActorMode || 'manual'}" selected`)}
+          </select>
+          <p class="fame-hint">${game.i18n.localize(`${MODULE_ID}.settings.defaultActorMode.hint`)}</p>
+        </div>
+        <div class="fame-form-group">
+          <label>${game.i18n.localize(`${MODULE_ID}.settings.defaultFactionMode.name`)}</label>
+          <select name="defaultFactionMode">
+            ${modeOptions.replace(`value="${context.settings.defaultFactionMode || 'manual'}"`, `value="${context.settings.defaultFactionMode || 'manual'}" selected`)}
+          </select>
+          <p class="fame-hint">${game.i18n.localize(`${MODULE_ID}.settings.defaultFactionMode.hint`)}</p>
+        </div>
+        <div class="fame-form-group fame-hybrid-settings">
+          <label>${game.i18n.localize(`${MODULE_ID}.settings.hybridBalance.name`)}</label>
+          <p class="fame-hint">${game.i18n.localize(`${MODULE_ID}.settings.hybridBalance.hint`)}</p>
+          <div class="fame-hybrid-sliders">
+            <div class="fame-hybrid-slider-row">
+              <span class="fame-hybrid-label">${game.i18n.localize(`${MODULE_ID}.settings.hybridBase.name`)}</span>
+              <input type="range" name="hybridBaseWeight" min="0" max="100" value="${context.settings.hybridBaseWeight ?? 50}">
+              <span class="fame-hybrid-value" data-for="hybridBaseWeight">${context.settings.hybridBaseWeight ?? 50}%</span>
+            </div>
+            <div class="fame-hybrid-slider-row">
+              <span class="fame-hybrid-label">${game.i18n.localize(`${MODULE_ID}.settings.hybridAuto.name`)}</span>
+              <input type="range" name="hybridAutoWeight" min="0" max="100" value="${context.settings.hybridAutoWeight ?? 50}">
+              <span class="fame-hybrid-value" data-for="hybridAutoWeight">${context.settings.hybridAutoWeight ?? 50}%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="fame-settings-panel ${context.currentTab === 'tiers' ? 'active' : ''}" data-tab="tiers">
         <div class="fame-form-group fame-tiers-section">
           <label>${game.i18n.localize(`${MODULE_ID}.relations.tiers`)}</label>
           <div class="fame-tiers-list">${tiersHtml}</div>
           <button type="button" class="fame-tier-add fame-add-btn">
             <i class="fa-solid fa-plus"></i> ${game.i18n.localize(`${MODULE_ID}.relations.addTier`)}
+          </button>
+        </div>
+      </div>
+
+      <div class="fame-settings-panel ${context.currentTab === 'data' ? 'active' : ''}" data-tab="data">
+        <div class="fame-form-group">
+          <label>${game.i18n.localize(`${MODULE_ID}.settings.exportImport.name`)}</label>
+          <p class="fame-hint">${game.i18n.localize(`${MODULE_ID}.settings.exportImport.hint`)}</p>
+        </div>
+        <div class="fame-export-import-section">
+          <div class="fame-export-import-row">
+            <button type="button" class="fame-export-btn">
+              <i class="fa-solid fa-download"></i> ${game.i18n.localize(`${MODULE_ID}.settings.export`)}
+            </button>
+            <button type="button" class="fame-import-btn">
+              <i class="fa-solid fa-upload"></i> ${game.i18n.localize(`${MODULE_ID}.settings.import`)}
+            </button>
+          </div>
+          <input type="file" class="fame-import-file" accept=".json" style="display:none">
+          <div class="fame-form-group fame-import-options">
+            <label class="fame-checkbox-label">
+              <input type="checkbox" name="importSettings" checked>
+              ${game.i18n.localize(`${MODULE_ID}.settings.importSettings`)}
+            </label>
+            <label class="fame-checkbox-label">
+              <input type="checkbox" name="importTiers" checked>
+              ${game.i18n.localize(`${MODULE_ID}.settings.importTiers`)}
+            </label>
+            <label class="fame-checkbox-label">
+              <input type="checkbox" name="importData" checked>
+              ${game.i18n.localize(`${MODULE_ID}.settings.importData`)}
+            </label>
+          </div>
+        </div>
+        <div class="fame-form-group fame-danger-zone">
+          <label>${game.i18n.localize(`${MODULE_ID}.settings.dangerZone`)}</label>
+          <button type="button" class="fame-reset-all-btn">
+            <i class="fa-solid fa-trash"></i> ${game.i18n.localize(`${MODULE_ID}.settings.resetAll`)}
           </button>
         </div>
       </div>
@@ -119,6 +200,13 @@ export class ReputationSettingsApp extends foundry.applications.api.ApplicationV
       });
     });
 
+    html.querySelectorAll('input[type="range"]').forEach(slider => {
+      slider.addEventListener('input', e => {
+        const valueSpan = html.querySelector(`.fame-hybrid-value[data-for="${e.target.name}"]`);
+        if (valueSpan) valueSpan.textContent = `${e.target.value}%`;
+      });
+    });
+
     html.querySelector('.fame-tier-add')?.addEventListener('click', () => {
       const tierItem = document.createElement('div');
       tierItem.className = 'fame-tier-item';
@@ -143,6 +231,13 @@ export class ReputationSettingsApp extends foundry.applications.api.ApplicationV
       });
     });
 
+    html.querySelector('.fame-export-btn')?.addEventListener('click', () => this._exportData());
+    html.querySelector('.fame-import-btn')?.addEventListener('click', () => {
+      html.querySelector('.fame-import-file').click();
+    });
+    html.querySelector('.fame-import-file')?.addEventListener('change', e => this._importData(e, html));
+    html.querySelector('.fame-reset-all-btn')?.addEventListener('click', () => this._resetAllData());
+
     html.querySelector('.fame-save-btn')?.addEventListener('click', async () => {
       const tiers = [...html.querySelectorAll('.fame-tier-item')]
         .map(item => ({
@@ -152,15 +247,102 @@ export class ReputationSettingsApp extends foundry.applications.api.ApplicationV
         }))
         .sort((a, b) => a.minValue - b.minValue);
 
+      const defaultActorSelect = html.querySelector('[name="defaultActorMode"]');
+      const defaultFactionSelect = html.querySelector('[name="defaultFactionMode"]');
+
       await setSettings({
         enabled: html.querySelector('[name="enabled"]').checked,
         displayMode: html.querySelector('[name="displayMode"]').value,
         min: parseInt(html.querySelector('[name="min"]').value),
-        max: parseInt(html.querySelector('[name="max"]').value)
+        max: parseInt(html.querySelector('[name="max"]').value),
+        defaultActorMode: defaultActorSelect.value,
+        defaultFactionMode: defaultFactionSelect.value,
+        hybridBaseWeight: parseInt(html.querySelector('[name="hybridBaseWeight"]').value),
+        hybridAutoWeight: parseInt(html.querySelector('[name="hybridAutoWeight"]').value)
       });
 
       await setTiers(tiers);
       this.close();
     });
+  }
+
+  _exportData() {
+    const exportObj = {
+      version: 1,
+      timestamp: Date.now(),
+      settings: getSettings(),
+      tiers: getTiers(),
+      data: getData()
+    };
+
+    const blob = new Blob([JSON.stringify(exportObj, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `fameosity-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    ui.notifications.info(game.i18n.localize(`${MODULE_ID}.settings.exportSuccess`));
+  }
+
+  async _importData(event, html) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const importObj = JSON.parse(text);
+
+      if (!importObj.version) {
+        ui.notifications.error(game.i18n.localize(`${MODULE_ID}.settings.importInvalid`));
+        return;
+      }
+
+      const importSettings = html.querySelector('[name="importSettings"]').checked;
+      const importTiers = html.querySelector('[name="importTiers"]').checked;
+      const importData = html.querySelector('[name="importData"]').checked;
+
+      if (importSettings && importObj.settings) {
+        await setSettings(importObj.settings);
+      }
+      if (importTiers && importObj.tiers) {
+        await setTiers(importObj.tiers);
+      }
+      if (importData && importObj.data) {
+        await setData(importObj.data);
+      }
+
+      ui.notifications.info(game.i18n.localize(`${MODULE_ID}.settings.importSuccess`));
+      this.render();
+    } catch (e) {
+      console.error(`${MODULE_ID} | Import error:`, e);
+      ui.notifications.error(game.i18n.localize(`${MODULE_ID}.settings.importError`));
+    }
+
+    event.target.value = '';
+  }
+
+  async _resetAllData() {
+    const confirmed = await foundry.applications.api.DialogV2.confirm({
+      window: { title: game.i18n.localize(`${MODULE_ID}.settings.resetConfirmTitle`) },
+      content: `<p>${game.i18n.localize(`${MODULE_ID}.settings.resetConfirmContent`)}</p>`,
+      yes: { default: false },
+      no: { default: true }
+    });
+
+    if (!confirmed) return;
+
+    const { DEFAULT_DATA, DEFAULT_SETTINGS } = await import('../constants.js');
+    const { getDefaultTiers } = await import('../data.js');
+
+    await setSettings({ ...DEFAULT_SETTINGS });
+    await setTiers(getDefaultTiers());
+    await setData({ ...DEFAULT_DATA });
+
+    ui.notifications.info(game.i18n.localize(`${MODULE_ID}.settings.resetSuccess`));
+    this.render();
   }
 }
