@@ -425,10 +425,10 @@ export class RelationsViewerApp extends foundry.applications.api.HandlebarsAppli
         id: pc.id,
         name: getDisplayName(pc.id),
         img: pc.img,
-        relationToChar: getIndRel(selectedActor.id, pc.id),
-        relationToCharTier: getTier(getIndRel(selectedActor.id, pc.id)),
-        charRelationToThem: getIndRel(pc.id, selectedActor.id),
-        charRelationToThemTier: getTier(getIndRel(pc.id, selectedActor.id)),
+        relationToChar: getIndRel(pc.id, selectedActor.id),      
+        relationToCharTier: getTier(getIndRel(pc.id, selectedActor.id)),
+        charRelationToThem: getIndRel(selectedActor.id, pc.id),
+        charRelationToThemTier: getTier(getIndRel(selectedActor.id, pc.id)),
         hidden: false,
         isTracked: allActors.some(a => a.id === pc.id)
       }));
