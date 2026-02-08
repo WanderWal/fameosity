@@ -458,6 +458,35 @@
               </div>
             </div>
             <div class="fame-collapsible-section">
+              <div class="fame-collapsible-header" data-action="toggleSection" data-entity="{{id}}" data-section="actor-npc-relations">
+                <i class="fa-solid fa-chevron-{{#if npcRelationsOpen}}down{{else}}right{{/if}} fame-collapse-icon"></i>
+                <span class="fame-section-label">{{localize (concat @root.moduleId '.relations.to-npcs')}}</span>
+                <span class="fame-section-count">({{npcRelations.length}})</span>
+              </div>
+              <div class="fame-collapsible-content {{#if npcRelationsOpen}}expanded{{/if}}">
+                <div class="fame-relations-list">
+                  {{#each npcRelations}}
+                  <div class="fame-relation-item {{#if hidden}}is-hidden{{/if}}">
+                    <img class="fame-rel-img small clickable" src="{{actorImg}}" data-action="navigate" data-type="actor" data-id="{{actorId}}">
+                    <div class="fame-rel-info">
+                      <span class="fame-rel-name clickable" data-action="navigate" data-type="actor" data-id="{{actorId}}">{{actorName}}</span>
+                      {{{tierBadge tier true}}}
+                    </div>
+                    <div class="fame-rel-bar-wrap">
+                      {{#if @root.isGM}}
+                      <div class="fame-bar-container compact" data-id="{{../id}}:{{actorId}}" data-type="individual" data-mode="manual">
+                        <div class="fame-bar"><div class="fame-bar-track"><div class="fame-bar-zero" style="left:50%"></div><div class="fame-bar-fill" style="left:{{fillLeft value @root.min @root.max}}%;width:{{fillWidth value @root.min @root.max}}%;background:{{tier.color}}"></div><div class="fame-bar-thumb" style="left:{{percentage value @root.min @root.max}}%;background:{{tier.color}}"></div></div><input type="range" class="fame-bar-slider" min="{{@root.min}}" max="{{@root.max}}" value="{{value}}" data-id="{{../id}}:{{actorId}}" data-type="individual" data-mode="manual"></div>
+                        <div class="fame-bar-controls"><button type="button" class="fame-bar-adj fame-minus" data-action="adjustRep" data-id="{{../id}}:{{actorId}}" data-type="individual" data-mode="manual" data-direction="minus"><i class="fa-solid fa-minus"></i></button><input type="number" class="fame-bar-val" value="{{value}}" min="{{@root.min}}" max="{{@root.max}}" data-id="{{../id}}:{{actorId}}" data-type="individual" data-mode="manual" style="color:{{tier.color}}"><button type="button" class="fame-bar-adj fame-plus" data-action="adjustRep" data-id="{{../id}}:{{actorId}}" data-type="individual" data-mode="manual" data-direction="plus"><i class="fa-solid fa-plus"></i></button></div>
+                      </div>
+                      {{else}}<span class="fame-rel-value-display" style="color:{{tier.color}}">{{#if (gt value 0)}}+{{/if}}{{value}}</span>{{/if}}
+                    </div>
+                    {{#if @root.isGM}}<button type="button" class="fame-icon-btn fame-hide-btn {{#if hidden}}active{{/if}}" data-action="toggleRelationHidden" data-rel-type="individual" data-entity-id="{{../id}}" data-target-id="{{actorId}}" data-tooltip="{{#if hidden}}{{localize (concat @root.moduleId '.tooltips.show')}}{{else}}{{localize (concat @root.moduleId '.tooltips.hide')}}{{/if}}"><i class="fa-solid fa-eye{{#if hidden}}-slash{{/if}}"></i></button>{{/if}}
+                  </div>
+                  {{else}}<div class="fame-no-items">{{localize (concat @root.moduleId '.relations.no-npcs')}}</div>{{/each}}
+                </div>
+              </div>
+            </div>
+            <div class="fame-collapsible-section">
               <div class="fame-collapsible-header" data-action="toggleSection" data-entity="{{id}}" data-section="actor-factions">
                 <i class="fa-solid fa-chevron-{{#if factionsOpen}}down{{else}}right{{/if}} fame-collapse-icon"></i>
                 <span class="fame-section-label">{{localize (concat @root.moduleId '.relations.to-factions')}}</span>

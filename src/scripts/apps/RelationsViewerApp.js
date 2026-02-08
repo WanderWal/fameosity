@@ -164,6 +164,7 @@ export class RelationsViewerApp extends foundry.applications.api.HandlebarsAppli
       allActors = allActors.map(a => ({
         ...a,
         relations: a.relations.filter(r => !r.hidden),
+        npcRelations: a.npcRelations.filter(r => !r.hidden && !r.actorHidden),
         factionRelations: a.factionRelations.filter(r => !r.hidden && !r.factionHidden && !r.memberHidden)
       }));
       
@@ -227,6 +228,24 @@ export class RelationsViewerApp extends foundry.applications.api.HandlebarsAppli
       };
     });
 
+    // Add NPC->NPC relations
+    const trackedActors = getTracked();
+    const npcRelations = trackedActors.filter(otherId => otherId !== id).map(otherId => {
+      const otherActor = game.actors.get(otherId);
+      if (!otherActor) return null;
+      const value = getIndRel(id, otherId);
+      const relHidden = isRelationHidden('individual', id, otherId);
+      return {
+        actorId: otherId,
+        actorName: getDisplayName(otherId),
+        actorImg: otherActor.img,
+        value,
+        tier: getTier(value),
+        hidden: relHidden,
+        actorHidden: isHidden('actor', otherId)
+      };
+    }).filter(Boolean);
+
     const factionRelations = rawFactions.map(faction => {
       const value = getActorFactionRel(id, faction.id);
       const isMember = (faction.members || []).includes(id);
@@ -259,8 +278,10 @@ export class RelationsViewerApp extends foundry.applications.api.HandlebarsAppli
       hidden,
       expanded: this.expandedActors.has(id),
       relations,
+      npcRelations,
       factionRelations,
       relationsOpen: this._isSectionOpen(id, 'actor-relations'),
+      npcRelationsOpen: this._isSectionOpen(id, 'actor-npc-relations'),
       factionsOpen: this._isSectionOpen(id, 'actor-factions')
     };
   }
@@ -412,6 +433,7 @@ export class RelationsViewerApp extends foundry.applications.api.HandlebarsAppli
 
     let characterActors;
     if (hasPlayerOwner) {
+      // PC viewing: show all tracked NPCs
       characterActors = allActors.filter(a => a.id !== selectedActor.id).map(a => ({
         ...a,
         relationToChar: getIndRel(a.id, selectedActor.id),
@@ -421,7 +443,8 @@ export class RelationsViewerApp extends foundry.applications.api.HandlebarsAppli
         isTracked: true
       }));
     } else {
-      characterActors = pcs.filter(pc => pc.id !== selectedActor.id).map(pc => ({
+      // NPC viewing: show all PCs and all other tracked NPCs
+      const pcActors = pcs.filter(pc => pc.id !== selectedActor.id).map(pc => ({
         id: pc.id,
         name: getDisplayName(pc.id),
         img: pc.img,
@@ -432,6 +455,17 @@ export class RelationsViewerApp extends foundry.applications.api.HandlebarsAppli
         hidden: false,
         isTracked: allActors.some(a => a.id === pc.id)
       }));
+      
+      const npcActors = allActors.filter(a => a.id !== selectedActor.id).map(a => ({
+        ...a,
+        relationToChar: getIndRel(a.id, selectedActor.id),
+        relationToCharTier: getTier(getIndRel(a.id, selectedActor.id)),
+        charRelationToThem: getIndRel(selectedActor.id, a.id),
+        charRelationToThemTier: getTier(getIndRel(selectedActor.id, a.id)),
+        isTracked: true
+      }));
+      
+      characterActors = [...pcActors, ...npcActors];
     }
 
     const characterLocations = allLocations.map(loc => {
