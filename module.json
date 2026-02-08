@@ -1,6 +1,6 @@
 {
-  "id": "fameosities",
-  "title": "Fameosities",
+  "id": "fameosity",
+  "title": "Fameosity",
   "version": "13.2.3",
   "compatibility": {
     "minimum": "13",
@@ -44,8 +44,8 @@
       "src": "styles/reputation.css"
     }
   ],
-  "manifest": "https://raw.githubusercontent.com/SweetyHake/fameosity/refs/heads/main/module.json",
-  "download": "https://github.com/SweetyHake/fameosity/releases/download/13.2.2/module.zip",
+  "manifest": "https://raw.githubusercontent.com/WanderWal/fameosity/refs/heads/main/module.json",
+  "download": "https://github.com/WanderWal/fameosity/releases/download/13.2.3/module.zip",
   "relationships": {
     "requires": [
       {
